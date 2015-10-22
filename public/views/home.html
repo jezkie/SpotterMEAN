@@ -1,0 +1,32 @@
+</div>
+<div>
+  <table class="table table-striped table-hover">
+    <tr>
+        <th>Select Exercise</th>
+        <td></td>
+    </tr>
+    <tr ng-repeat="item in exercises">
+      <td>
+        <a ui-sref="exercise({exercise: item.name, rest: item.rest})">{{item.name}}</a>
+      </td>
+      <td>
+        <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a ng-click="edit(item.$id)">Edit</a></li>
+          <li><a ng-click="remove(item.$id)">Delete</a></li>
+        </ul>
+      </div>
+      </td>
+    </tr>
+  </table>
+  <form ng-submit="submit()" class="form-inline">
+      <input type="text" ng-model="data.name" required placeholder="Exercise name"/>
+      <input type="number" ng-model="data.rest" required placeholder="Set Rest" />
+      <button type="submit" class="btn btn-default">
+        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+      </button>
+  </form>
+</div>

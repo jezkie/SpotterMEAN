@@ -1,0 +1,21 @@
+<div>
+  {{name}}
+  <table border="1" class="table table-striped">
+    <tr>
+      <th>Rest Time</th>
+      <th colspan="2">Last Set</th>
+    </tr>
+    <tr>
+      <td rowspan="2">{{countdown}}</td>
+      <td>Weight</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <td>Reps</td>
+      <td>5</td>
+    </tr>
+  </table>
+</div>
+<div>
+    <button type="button" class="btn btn-default" ng-click="finishSet()">Finish Set</button>
+</div>
