@@ -1,0 +1,34 @@
+[
+    {
+      "name" : "Bench Press",
+      "rest" : 90
+    },
+    {
+      "name" : "Chin Up",
+      "rest" : 90
+    },
+    {
+      "name" : "Deadlift",
+      "rest" : 90
+    },
+    {
+      "name" : "Overhead Press",
+      "rest" : 90
+    },
+    {
+      "name" : "Plank",
+      "rest" : 90
+    },
+    {
+      "name" : "Pull Up",
+      "rest" : 90
+    },
+    {
+      "name" : "Row",
+      "rest" : 90
+    },
+    {
+      "name" : "Squat",
+      "rest" : 90
+    }
+]
