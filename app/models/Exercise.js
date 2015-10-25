@@ -8,4 +8,4 @@ var ExerciseSchema = {
   rest : {type : Number, min: 0, max: 300}
 };
 
-module.exports = mongoose.model('Exercise', ExerciseSchema);
+module.exports = mongoose.model('Exercise', ExerciseSchema, 'exercise');
