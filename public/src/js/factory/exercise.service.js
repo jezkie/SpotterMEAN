@@ -5,15 +5,22 @@
     .service('ExerciseService', ExerciseService);
 
   var FIREBASE_URL = 'https://myspotter.firebaseio.com';
+  var CONFIG = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+    }
+  };
 
-  function ExerciseService($firebaseArray, $firebaseObject, $http) {
-    var self = this;
+  function ExerciseService($firebaseArray, $firebaseObject, $http, $httpParamSerializerJQLike) {
+    var service = this;
     var ref = new Firebase(FIREBASE_URL);
 
-    self.getExerciseById = getExerciseById;
-    self.getExercises = getExercises;
-    self.rootRef = rootRef;
-    self.remove = remove;
+
+    service.getExerciseById = getExerciseById;
+    service.getExercises = getExercises;
+    service.rootRef = rootRef;
+    service.remove = remove;
+    service.add = add;
 
     // Internal functions
     function getExerciseById(id) {
@@ -26,8 +33,16 @@
           return response.data;
         }, onError
       );
+    }
 
-      //return $firebaseArray(ref.child('exercises'));
+    function add(form){
+      return $http.post( '/api/exercises', $httpParamSerializerJQLike($scope.data), CONFIG)
+        .then(
+          function(data){
+            console.log('success', data);
+            return data;
+          }, onError
+        );
     }
 
     function remove(id){
@@ -35,7 +50,7 @@
       toRemoveObj.$remove().then(function(ref) {}, onError);
     }
 
-    var onError = function(err) {
+    function onError(err) {
       console.log('Error', err);
     }
 
