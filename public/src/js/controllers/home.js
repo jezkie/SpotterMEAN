@@ -4,58 +4,51 @@
   angular.module('spot')
     .controller('HomeCtrl', HomeCtrl);
 
-  function HomeCtrl($scope, ExerciseService) {
 
-    $scope.data = {
-      name: null,
-      rest: null
-    };
+  function HomeCtrl($scope, ExerciseService, $location) {
 
-    var clearForm = function() {
+    $scope.remove = remove;
+    $scope.submit = submit;
+    $scope.edit = edit;
+
+    // Initializations
+    $scope.data = {};
+    getList();
+
+    // Internal Functions
+    function clearForm() {
       $scope.data.name = null;
       $scope.data.rest = null;
     };
 
-    var updateForm = function(model) {
-      $scope.data.rest = model.rest;
-      $scope.data.name = model.name;
-    };
-
-    var updateModel = function(model, form) {
-      model.name = $scope.data.name;
-      model.rest = $scope.data.rest;
-      return model;
-    };
-
-    var recId = null;
-    $scope.edit = function(id) {
+    function edit(id) {
       recId = id;
       var oldObj = $scope.exercises.$getRecord(id);
       updateForm(oldObj);
     };
 
-    //$scope.exercises = ExerciseService.getExercises();
-    ExerciseService.getExercises()
-      .then(function(data){
-          $scope.exercises = data;
+    function getList(){
+      ExerciseService.getExercises()
+        .then(function(data){
+            $scope.exercises = data;
       });
-    $scope.remove = function(id) {
+    };
+
+    function remove(id) {
       ExerciseService.remove(id);
     };
 
-    $scope.submit = function() {
-      if (recId) {
-        var toSaveObj = $scope.exercises.$getRecord(recId);
-        $scope.exercises.$save(updateModel(toSaveObj, $scope.data));
+    function submit() {
+      if (false) {
         recId = null;
       } else {
-        var ref = ExerciseService.rootRef();
-        ref.child('exercises/' + $scope.data.name)
-          .set($scope.data);
+        ExerciseService.add($scope.data)
+          .then(function(){
+            clearForm();
+            getList();
+          });
       }
-      clearForm();
     }
-
   };
 
 })();
