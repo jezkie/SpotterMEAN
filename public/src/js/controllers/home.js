@@ -12,19 +12,20 @@
     $scope.edit = edit;
 
     // Initializations
-    $scope.data = {};
+    $scope.exercise = {};
     getList();
 
     // Internal Functions
     function clearForm() {
-      $scope.data.name = null;
-      $scope.data.rest = null;
+      $scope.exercise.name = null;
+      $scope.exercise.rest = null;
     };
 
     function edit(id) {
-      recId = id;
-      var oldObj = $scope.exercises.$getRecord(id);
-      updateForm(oldObj);
+      ExerciseService.getExerciseById(id).then(function(data){
+          $scope.exercise = data;
+      });
+      console.log('id to edit', id);
     };
 
     function getList(){
@@ -39,10 +40,17 @@
     };
 
     function submit() {
-      if (false) {
-        recId = null;
+      if ($scope.exercise._id) {
+        console.log('Updating data...');
+        ExerciseService.update($scope.exercise)
+          .then(function(){
+            clearForm();
+            getList();
+          }, function(err){
+            console.log(err)
+          });
       } else {
-        ExerciseService.add($scope.data)
+        ExerciseService.add($scope.exercise)
           .then(function(){
             clearForm();
             getList();
