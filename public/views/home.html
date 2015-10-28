@@ -15,16 +15,17 @@
           <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
         </button>
         <ul class="dropdown-menu">
-          <li><a ng-click="edit(item.$id)">Edit</a></li>
-          <li><a ng-click="remove(item.$id)">Delete</a></li>
+          <li><a ng-click="edit(item._id)">Edit</a></li>
+          <li><a ng-click="remove(item._id)">Delete</a></li>
         </ul>
       </div>
       </td>
     </tr>
   </table>
   <form ng-submit="submit()" class="form-inline">
-      <input type="text" ng-model="data.name" required placeholder="Exercise name"/>
-      <input type="number" ng-model="data.rest" required placeholder="Set Rest" />
+      <input type="hidden" ng-value="exercise._id"/>
+      <input type="text" ng-model="exercise.name" required placeholder="Exercise name"/>
+      <input type="number" ng-model="exercise.rest" required placeholder="Set Rest" />
       <button type="submit" class="btn btn-default">
         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
       </button>
