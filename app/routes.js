@@ -10,7 +10,7 @@ module.exports = function(app) {
   // route to handle all angular requests
 
 
-  app.get('/api/exercises/:id', function(req, res){
+  app.get('/api/exercises/:id', function(req, res) {
     Exercise.findById(req.params.id, function(err, doc) {
       if (err)
         res.send(err);
@@ -20,16 +20,16 @@ module.exports = function(app) {
   })
 
   app.get('/api/exercises', function(req, res) {
-      Exercise.find(function(err, doc) {
-        if (err)
-          res.send(err);
+    Exercise.find(function(err, doc) {
+      if (err)
+        res.send(err);
 
-        res.json(doc);
-      });
+      res.json(doc);
+    });
 
-    })
+  })
 
-  app.post('/api/exercises/add', function(req, res){
+  app.post('/api/exercises/add', function(req, res) {
     var exercise;
     console.log(req.body);
 
@@ -38,8 +38,8 @@ module.exports = function(app) {
       rest: req.body.rest
     });
 
-    exercise.save(function(err){
-      if (!err){
+    exercise.save(function(err) {
+      if (!err) {
         console.log('created');
       } else {
         console.log(err);
@@ -50,24 +50,36 @@ module.exports = function(app) {
     return res.send(exercise);
   })
 
-  app.post('/api/exercises/edit', function(req, res){
+  app.post('/api/exercises/edit', function(req, res) {
 
     console.log(req.body);
 
-    Exercise.findById(req.body._id, function(err, exercise){
+    Exercise.findById(req.body._id, function(err, exercise) {
       exercise.name = req.body.name;
       exercise.rest = req.body.rest;
 
-      exercise.save(function(err){
-        if (!err){
+      exercise.save(function(err) {
+        if (!err) {
           console.log('created');
         } else {
           console.log(err);
         }
       });
-
-      return res.send(exercise);
     });
 
+    return res.send(exercise);
   })
+
+  app.delete('/api/exercises/:id', function(req, res) {
+    Exercise.findByIdAndRemove(req.params.id, function(err){
+      if (!err) {
+        console.log('deleted');
+      } else {
+        res.send(err);
+        console.log(err);
+      }
+    });
+    return res.send('Record ' + req.params.id + 'deleted.');
+  })
+
 };

@@ -22,36 +22,37 @@
     };
 
     function edit(id) {
-      ExerciseService.getExerciseById(id).then(function(data){
-          $scope.exercise = data;
+      ExerciseService.getExerciseById(id).then(function(data) {
+        $scope.exercise = data;
       });
       console.log('id to edit', id);
     };
 
-    function getList(){
+    function getList() {
       ExerciseService.getExercises()
-        .then(function(data){
-            $scope.exercises = data;
-      });
+        .then(function(data) {
+          $scope.exercises = data;
+        });
     };
 
     function remove(id) {
-      ExerciseService.remove(id);
+      ExerciseService.remove(id).then(
+        function(response) {
+          getList();
+        });
     };
 
     function submit() {
       if ($scope.exercise._id) {
         console.log('Updating data...');
         ExerciseService.update($scope.exercise)
-          .then(function(){
+          .then(function() {
             clearForm();
             getList();
-          }, function(err){
-            console.log(err)
           });
       } else {
         ExerciseService.add($scope.exercise)
-          .then(function(){
+          .then(function() {
             clearForm();
             getList();
           });

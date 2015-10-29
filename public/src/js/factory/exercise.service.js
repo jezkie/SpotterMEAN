@@ -58,8 +58,11 @@
     }
 
     function remove(id){
-      // var toRemoveObj = getExerciseById(id);
-      // toRemoveObj.$remove().then(function(ref) {}, onError);
+      return $http.delete('/api/exercises/' + id).then(
+        function(response){
+          return response;
+        }, onError
+      );
     }
 
     function onError(err) {
