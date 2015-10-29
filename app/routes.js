@@ -47,7 +47,7 @@ module.exports = function(app) {
 
     });
 
-    return res.send(exercise);
+    res.send('Exercise ' + exercise.name + ' has been created.');
   })
 
   app.post('/api/exercises/edit', function(req, res) {
@@ -67,7 +67,7 @@ module.exports = function(app) {
       });
     });
 
-    return res.send(exercise);
+    res.send('Record ' + req.body._id + ' updated.');
   })
 
   app.delete('/api/exercises/:id', function(req, res) {
@@ -79,7 +79,7 @@ module.exports = function(app) {
         console.log(err);
       }
     });
-    return res.send('Record ' + req.params.id + 'deleted.');
+    res.send('Record ' + req.params.id + ' deleted.');
   })
 
 };
